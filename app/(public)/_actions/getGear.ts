@@ -1,8 +1,28 @@
 "use server";
 
-const getGears = async () => {
+import { ApiResponse, GearItem, PaginationMeta } from "@/lib/types";
+
+export interface GearFilters {
+	category?: string;
+	brand?: string;
+	minPrice?: string;
+	maxPrice?: string;
+	search?: string;
+	page?: string;
+	limit?: string;
+	sortBy?: string;
+	sortOrder?: string;
+}
+
+const getGears = async (
+	filters: GearFilters,
+): Promise<ApiResponse<GearItem[]> & { meta?: PaginationMeta }> => {
 	const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 	const query = new URLSearchParams();
+
+	Object.entries(filters).forEach(([key, value]) => {
+		if (value) query.append(key, value);
+	});
 
 	try {
 		const res = await fetch(`${apiUrl}/gear?${query.toString()}`, {
