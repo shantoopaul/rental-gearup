@@ -21,10 +21,14 @@ const GearFilters = ({ categories }: GearFiltersProps) => {
 	const pathname = usePathname();
 	const searchParams = useSearchParams();
 
+	const brand = searchParams.get("brand") || "";
+	const minPrice = searchParams.get("minPrice") || "";
+	const maxPrice = searchParams.get("maxPrice") || "";
+
 	const updateFilter = (key: string, value: string | null) => {
 		const params = new URLSearchParams(searchParams);
-		if (value) {
-			params.set(key, value);
+		if (value && value.trim()) {
+			params.set(key, value.trim());
 		} else {
 			params.delete(key);
 		}
@@ -37,7 +41,7 @@ const GearFilters = ({ categories }: GearFiltersProps) => {
 			<div>
 				<h3 className="font-semibold mb-3">Category</h3>
 				<Select
-					defaultValue={searchParams.get("category") || "all"}
+					value={searchParams.get("category") || "All Categories"}
 					onValueChange={(value) =>
 						updateFilter("category", value === "all" ? "" : value)
 					}
@@ -57,6 +61,24 @@ const GearFilters = ({ categories }: GearFiltersProps) => {
 			</div>
 
 			<div>
+				<h3 className="font-semibold mb-3">Brand</h3>
+				<Input
+					id="brand"
+					type="text"
+					placeholder="e.g. Nike, Patagonia"
+					defaultValue={brand}
+					onBlur={(e) => updateFilter("brand", e.target.value)}
+					onKeyDown={(e) => {
+						if (e.key === "Enter") {
+							e.preventDefault();
+							updateFilter("brand", e.currentTarget.value);
+						}
+					}}
+					className="h-9"
+				/>
+			</div>
+
+			<div>
 				<h3 className="font-semibold mb-3">Price</h3>
 				<div className="flex items-center gap-2">
 					<div className="space-y-1">
@@ -70,7 +92,7 @@ const GearFilters = ({ categories }: GearFiltersProps) => {
 							id="minPrice"
 							type="number"
 							placeholder="0"
-							defaultValue={searchParams.get("minPrice") || ""}
+							defaultValue={minPrice}
 							onBlur={(e) =>
 								updateFilter("minPrice", e.target.value)
 							}
@@ -89,7 +111,7 @@ const GearFilters = ({ categories }: GearFiltersProps) => {
 							id="maxPrice"
 							type="number"
 							placeholder="999"
-							defaultValue={searchParams.get("maxPrice") || ""}
+							defaultValue={maxPrice}
 							onBlur={(e) =>
 								updateFilter("maxPrice", e.target.value)
 							}
