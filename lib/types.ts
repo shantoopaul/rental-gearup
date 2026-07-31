@@ -9,3 +9,29 @@ export interface User {
 	status: UserStatus;
 	createdAt: string;
 }
+
+export interface Category {
+	id: string;
+	name: string;
+}
+
+export interface GearItem {
+	id: string;
+	title: string;
+	description: string;
+	brand: string;
+	pricePerDay: number | string;
+	quantity: number;
+	isAvailable: boolean;
+	images: string[];
+	categoryId: string;
+	category: Category;
+	providerId: string;
+	provider?: { id: string; name: string; email: string };
+}
+
+export interface ApiResponse<T> {
+	success: boolean;
+	message: string;
+	data: T;
+}

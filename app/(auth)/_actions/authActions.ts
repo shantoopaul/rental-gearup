@@ -5,7 +5,7 @@ import { RegisterInput, LoginInput } from "@/lib/validations/auth";
 const registerUser = async (data: RegisterInput) => {
 	const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 	try {
-		const res = await fetch(`${apiUrl}/api/auth/register`, {
+		const res = await fetch(`${apiUrl}/auth/register`, {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify(data),
@@ -36,7 +36,7 @@ const registerUser = async (data: RegisterInput) => {
 const loginUser = async (data: LoginInput) => {
 	const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 	try {
-		const res = await fetch(`${apiUrl}/api/auth/login`, {
+		const res = await fetch(`${apiUrl}/auth/login`, {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify(data),
