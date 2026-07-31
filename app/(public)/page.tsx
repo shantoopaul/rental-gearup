@@ -1,6 +1,10 @@
+// app/(public)/page.tsx
 import Link from "next/link";
 import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button";
 import { ArrowRight, ShieldCheck, Clock, Star } from "lucide-react";
+import FeaturedGear from "./_components/gear/FeaturedGear";
+import { Suspense } from "react";
+import GearGridSkeleton from "./_components/gear/GearGridSkeleton";
 
 const HomePage = () => {
 	return (
@@ -19,17 +23,43 @@ const HomePage = () => {
 					</p>
 					<div className="flex flex-col sm:flex-row items-center justify-center gap-4">
 						<Link href="/gear">
-							<InteractiveHoverButton>
+							<InteractiveHoverButton className="py-3">
 								Browse Gear
 							</InteractiveHoverButton>
 						</Link>
 						<Link href="/how-it-works">
-							<button className="inline-flex items-center justify-center rounded-full border border-input bg-background px-6 py-2 text-sm font-medium transition-colors hover:bg-muted">
+							<button className="inline-flex items-center justify-center rounded-full border border-input bg-background px-6 py-3.5 text-sm font-medium transition-colors hover:bg-muted">
 								How It Works{" "}
 								<ArrowRight className="ml-2 h-4 w-4" />
 							</button>
 						</Link>
 					</div>
+				</div>
+			</section>
+
+			{/* Featured Gear Section */}
+			<section className="py-16 md:py-24 bg-muted/30">
+				<div className="container mx-auto px-4">
+					<div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-10 gap-4">
+						<div>
+							<h2 className="text-3xl font-bold tracking-tight mb-2">
+								Featured Gear
+							</h2>
+							<p className="text-muted-foreground max-w-2xl">
+								Top-rated equipment ready for your next
+								adventure.
+							</p>
+						</div>
+						<Link href="/gear">
+							<InteractiveHoverButton className="py-3">
+								Explore All Gear
+							</InteractiveHoverButton>
+						</Link>
+					</div>
+
+					<Suspense fallback={<GearGridSkeleton />}>
+						<FeaturedGear />
+					</Suspense>
 				</div>
 			</section>
 
@@ -45,7 +75,6 @@ const HomePage = () => {
 							affordable, and reliable.
 						</p>
 					</div>
-
 					<div className="grid grid-cols-1 md:grid-cols-3 gap-8">
 						<div className="flex flex-col items-center text-center p-6 rounded-xl border bg-card">
 							<div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
@@ -59,7 +88,6 @@ const HomePage = () => {
 								by verified providers to ensure top performance.
 							</p>
 						</div>
-
 						<div className="flex flex-col items-center text-center p-6 rounded-xl border bg-card">
 							<div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
 								<Clock className="h-6 w-6 text-primary" />
@@ -72,7 +100,6 @@ const HomePage = () => {
 								dates, and get confirmed in seconds.
 							</p>
 						</div>
-
 						<div className="flex flex-col items-center text-center p-6 rounded-xl border bg-card">
 							<div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
 								<Star className="h-6 w-6 text-primary" />
