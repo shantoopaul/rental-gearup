@@ -46,7 +46,7 @@ export function Navbar() {
 						<Link href="/auth/login">Log In</Link>
 					</Button>
 					<Button>
-						<Link href="/auth/register">Sign Up</Link>
+						<Link href="/register">Sign Up</Link>
 					</Button>
 				</div>
 
@@ -83,7 +83,7 @@ export function Navbar() {
 							className="w-full justify-start"
 						>
 							<Link
-								href="/auth/login"
+								href="/login"
 								onClick={() => setIsOpen(false)}
 							>
 								<User className="mr-2 h-4 w-4" /> Log In
@@ -91,7 +91,7 @@ export function Navbar() {
 						</Button>
 						<Button className="w-full justify-start">
 							<Link
-								href="/auth/register"
+								href="/register"
 								onClick={() => setIsOpen(false)}
 							>
 								Sign Up

@@ -99,7 +99,7 @@ export default function HomePage() {
 						Join thousands of outdoor enthusiasts who trust GearUp
 						for their equipment needs.
 					</p>
-					<Link href="/auth/register">
+					<Link href="/register">
 						<button className="inline-flex items-center justify-center rounded-full bg-background text-primary px-8 py-3 text-base font-semibold transition-colors hover:bg-background/90">
 							Create an Account
 						</button>
