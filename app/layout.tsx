@@ -1,8 +1,8 @@
 import "@/app/globals.css";
 import { cn } from "@/lib/utils";
 import { Montserrat } from "next/font/google";
-import { Navbar } from "@/components/shared/navbar";
-import { Footer } from "@/components/shared/footer";
+import Navbar from "@/components/shared/navbar";
+import Footer from "@/components/shared/footer";
 import { Toaster } from "@/components/ui/sonner";
 
 const montserrat = Montserrat({ subsets: ["latin"], variable: "--font-sans" });

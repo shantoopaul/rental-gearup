@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export function Footer() {
+const Footer = () => {
 	return (
 		<footer className="w-full border-t bg-background py-8 md:py-12">
 			<div className="container mx-auto px-4">
@@ -10,8 +10,7 @@ export function Footer() {
 							href="/"
 							className="flex items-center gap-2 font-bold text-xl text-primary"
 						>
-							<span className="text-2xl">🏋️</span>
-							GearUp
+							Rental GearUp
 						</Link>
 						<p className="text-sm text-muted-foreground max-w-xs">
 							Rent sports and outdoor gear instantly. Quality
@@ -105,11 +104,13 @@ export function Footer() {
 
 				<div className="mt-8 pt-8 border-t text-center text-sm text-muted-foreground">
 					<p>
-						&copy; {new Date().getFullYear()} GearUp. All rights
-						reserved.
+						&copy; {new Date().getFullYear()} Rental GearUp. All
+						rights reserved.
 					</p>
 				</div>
 			</div>
 		</footer>
 	);
-}
+};
+
+export default Footer;

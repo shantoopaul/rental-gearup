@@ -3,15 +3,15 @@ import { useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { registerSchema, type RegisterInput } from "@/lib/validations/auth";
-import { registerUser } from "../_actions/authActions";
+import { loginSchema, type LoginInput } from "@/lib/validations/auth";
+import { loginUser } from "../_actions/authActions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { toast } from "sonner";
 
-const RegisterForm = () => {
+const LoginForm = () => {
 	const [isPending, startTransition] = useTransition();
 	const router = useRouter();
 
@@ -19,24 +19,34 @@ const RegisterForm = () => {
 		register,
 		handleSubmit,
 		formState: { errors },
-	} = useForm<RegisterInput>({
-		resolver: zodResolver(registerSchema),
+	} = useForm<LoginInput>({
+		resolver: zodResolver(loginSchema),
 		defaultValues: {
-			name: "",
 			email: "",
 			password: "",
-			role: "CUSTOMER",
 		},
 	});
 
-	const onSubmit = (data: RegisterInput) => {
+	const onSubmit = (data: LoginInput) => {
 		startTransition(async () => {
-			const result = await registerUser(data);
-			if (result.success) {
+			const result = await loginUser(data);
+
+			if (result.success && result.data) {
 				toast.success(result.message);
-				router.push("/login?registered=true");
+
+				localStorage.setItem("accessToken", result.data.accessToken);
+				localStorage.setItem("user", JSON.stringify(result.data.user));
+
+				const role = result.data.user.role;
+				if (role === "ADMIN") {
+					router.push("/admin-dashboard");
+				} else if (role === "PROVIDER") {
+					router.push("/provider-dashboard");
+				} else {
+					router.push("/dashboard");
+				}
 			} else {
-				toast.error(result.message);
+				toast.error(result.message || "Login failed");
 			}
 		});
 	};
@@ -45,21 +55,6 @@ const RegisterForm = () => {
 		<Card className="py-6">
 			<form onSubmit={handleSubmit(onSubmit)}>
 				<CardContent className="space-y-6 px-5">
-					<div className="space-y-3">
-						<Label htmlFor="name">Full Name</Label>
-						<Input
-							id="name"
-							placeholder="Shanto Paul"
-							{...register("name")}
-							disabled={isPending}
-						/>
-						{errors.name && (
-							<p className="text-sm text-destructive -mt-3">
-								{errors.name.message}
-							</p>
-						)}
-					</div>
-
 					<div className="space-y-3">
 						<Label htmlFor="email">Email</Label>
 						<Input
@@ -75,7 +70,6 @@ const RegisterForm = () => {
 							</p>
 						)}
 					</div>
-
 					<div className="space-y-3">
 						<Label htmlFor="password">Password</Label>
 						<Input
@@ -91,32 +85,14 @@ const RegisterForm = () => {
 							</p>
 						)}
 					</div>
-
-					<div className="space-y-3">
-						<Label htmlFor="role">I am a</Label>
-						<select
-							id="role"
-							{...register("role")}
-							disabled={isPending}
-							className="flex h-9 w-full rounded-md border border-input px-2 py-1 text-sm"
-						>
-							<option value="CUSTOMER">Customer</option>
-							<option value="PROVIDER">Provider</option>
-						</select>
-						{errors.role && (
-							<p className="text-sm text-destructive -mt-3">
-								{errors.role.message}
-							</p>
-						)}
-					</div>
 				</CardContent>
-				<CardFooter className="mt-6">
+				<CardFooter className="mt-6 flex flex-col gap-4">
 					<Button
 						type="submit"
 						className="w-full p-5"
 						disabled={isPending}
 					>
-						{isPending ? "Creating account..." : "Create Account"}
+						{isPending ? "Logging in..." : "Log In"}
 					</Button>
 				</CardFooter>
 			</form>
@@ -124,4 +100,4 @@ const RegisterForm = () => {
 	);
 };
 
-export default RegisterForm;
+export default LoginForm;

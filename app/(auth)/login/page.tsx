@@ -1,29 +1,29 @@
 import Link from "next/link";
-import RegisterForm from "../_components/RegisterForm";
+import LoginForm from "../_components/LoginForm";
 
-const RegisterPage = () => {
+const LoginPage = () => {
 	return (
 		<div className="space-y-2 text-center">
 			<div className="space-y-2">
 				<h1 className="text-3xl font-bold tracking-tight">
-					Create an account
+					Welcome back
 				</h1>
 				<p className="text-muted-foreground">
-					Enter your details below to create your GearUp account
+					Enter your credentials to access your account
 				</p>
 			</div>
-			<RegisterForm />
+			<LoginForm />
 			<p className="text-center text-sm text-muted-foreground">
-				Already have an account?{" "}
+				Don&apos;t have an account?{" "}
 				<Link
-					href="/login"
+					href="/register"
 					className="font-medium text-primary underline underline-offset-4 hover:text-primary/80"
 				>
-					Log in
+					Sign up
 				</Link>
 			</p>
 		</div>
 	);
 };
 
-export default RegisterPage;
+export default LoginPage;

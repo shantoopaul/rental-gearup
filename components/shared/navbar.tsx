@@ -5,7 +5,7 @@ import { Menu, X, User } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 
-export function Navbar() {
+const Navbar = () => {
 	const [isOpen, setIsOpen] = useState(false);
 
 	const navLinks = [
@@ -23,8 +23,7 @@ export function Navbar() {
 					href="/"
 					className="flex items-center gap-2 font-bold text-xl text-primary"
 				>
-					<span className="text-2xl">🏋️</span>
-					GearUp
+					Rental GearUp
 				</Link>
 
 				{/* Desktop Navigation */}
@@ -43,7 +42,7 @@ export function Navbar() {
 				{/* Desktop Auth Buttons */}
 				<div className="hidden md:flex items-center gap-4">
 					<Button variant="ghost">
-						<Link href="/auth/login">Log In</Link>
+						<Link href="/login">Log In</Link>
 					</Button>
 					<Button>
 						<Link href="/register">Sign Up</Link>
@@ -102,4 +101,6 @@ export function Navbar() {
 			)}
 		</header>
 	);
-}
+};
+
+export default Navbar;

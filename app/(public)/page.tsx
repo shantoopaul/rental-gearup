@@ -2,7 +2,7 @@ import Link from "next/link";
 import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button";
 import { ArrowRight, ShieldCheck, Clock, Star } from "lucide-react";
 
-export default function HomePage() {
+const HomePage = () => {
 	return (
 		<div className="flex flex-col">
 			{/* Hero Section */}
@@ -108,4 +108,6 @@ export default function HomePage() {
 			</section>
 		</div>
 	);
-}
+};
+
+export default HomePage;
