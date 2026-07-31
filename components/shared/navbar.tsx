@@ -41,12 +41,19 @@ const Navbar = () => {
 
 				{/* Desktop Auth Buttons */}
 				<div className="hidden md:flex items-center gap-4">
-					<Button variant="ghost">
-						<Link href="/login">Log In</Link>
-					</Button>
-					<Button>
-						<Link href="/register">Sign Up</Link>
-					</Button>
+					<Link href="/login">
+						<Button
+							variant="ghost"
+							className="py-5 px-5 rounded-full"
+						>
+							Log In
+						</Button>
+					</Link>
+					<Link href="/register">
+						<Button className="py-5 px-5 rounded-full">
+							Sign Up
+						</Button>
+					</Link>
 				</div>
 
 				{/* Mobile Menu Button */}
@@ -77,25 +84,19 @@ const Navbar = () => {
 						</Link>
 					))}
 					<div className="flex flex-col gap-2 pt-4 border-t">
-						<Button
-							variant="outline"
-							className="w-full justify-start"
-						>
-							<Link
-								href="/login"
-								onClick={() => setIsOpen(false)}
+						<Link href="/login" onClick={() => setIsOpen(false)}>
+							<Button
+								variant="outline"
+								className="w-full justify-start"
 							>
 								<User className="mr-2 h-4 w-4" /> Log In
-							</Link>
-						</Button>
-						<Button className="w-full justify-start">
-							<Link
-								href="/register"
-								onClick={() => setIsOpen(false)}
-							>
+							</Button>
+						</Link>
+						<Link href="/register" onClick={() => setIsOpen(false)}>
+							<Button className="w-full justify-start">
 								Sign Up
-							</Link>
-						</Button>
+							</Button>
+						</Link>
 					</div>
 				</div>
 			)}
