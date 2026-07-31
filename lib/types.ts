@@ -15,6 +15,16 @@ export interface Category {
 	name: string;
 }
 
+// lib/types.ts (Additions/Updates)
+
+export interface Review {
+	id: string;
+	rating: number;
+	comment?: string;
+	createdAt: string;
+	customer: { id: string; name: string };
+}
+
 export interface GearItem {
 	id: string;
 	title: string;
@@ -28,6 +38,7 @@ export interface GearItem {
 	category: Category;
 	providerId: string;
 	provider?: { id: string; name: string; email: string };
+	reviews?: Review[];
 }
 
 export interface PaginationMeta {
