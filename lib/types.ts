@@ -34,6 +34,7 @@ export interface Payment {
 	createdAt: string;
 	updatedAt: string;
 	rentalOrderId: string;
+	rentalOrder?: RentalOrder;
 }
 
 export interface User {
