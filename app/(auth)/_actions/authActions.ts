@@ -1,6 +1,8 @@
 "use server";
 
 import { RegisterInput, LoginInput } from "@/lib/validations/auth";
+import { setAccessToken, clearAccessToken } from "@/lib/cookies";
+import { redirect } from "next/navigation";
 
 const registerUser = async (data: RegisterInput) => {
 	const apiUrl = process.env.NEXT_PUBLIC_API_URL;
@@ -12,6 +14,7 @@ const registerUser = async (data: RegisterInput) => {
 			cache: "no-store",
 		});
 		const result = await res.json();
+
 		if (!res.ok) {
 			return {
 				success: false,
@@ -19,6 +22,7 @@ const registerUser = async (data: RegisterInput) => {
 				errors: result.errorDetails,
 			};
 		}
+
 		return {
 			success: true,
 			message: "User registered successfully. Please log in.",
@@ -52,6 +56,20 @@ const loginUser = async (data: LoginInput) => {
 			};
 		}
 
+		if (result.data?.accessToken) {
+			await setAccessToken(result.data.accessToken);
+
+			// Redirect based on role
+			const role = result.data.user.role;
+			if (role === "ADMIN") {
+				redirect("/admin-dashboard");
+			} else if (role === "PROVIDER") {
+				redirect("/provider-dashboard");
+			} else {
+				redirect("/dashboard");
+			}
+		}
+
 		return {
 			success: true,
 			message: "User logged in successfully",
@@ -66,4 +84,9 @@ const loginUser = async (data: LoginInput) => {
 	}
 };
 
-export { registerUser, loginUser };
+const logoutUser = async () => {
+	await clearAccessToken();
+	redirect("/auth/login");
+};
+
+export { registerUser, loginUser, logoutUser };
