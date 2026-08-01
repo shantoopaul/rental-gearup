@@ -75,24 +75,22 @@ export function OrdersTable() {
 								<OrderStatusBadge status={order.status} />
 							</TableCell>
 							<TableCell className="text-right space-x-2">
-								<Button variant="ghost" size="icon-sm">
-									<Link
-										href={`/dashboard/my-orders/${order.id}`}
-									>
+								<Link href={`/dashboard/my-orders/${order.id}`}>
+									<Button variant="ghost" size="icon-sm">
 										<Eye className="h-4 w-4" />
-									</Link>
-								</Button>
+									</Button>
+								</Link>
 								{order.status === "CONFIRMED" &&
 									(!order.payment ||
 										order.payment.status === "PENDING") && (
-										<Button variant="outline" size="sm">
-											<Link
-												href={`/dashboard/my-orders/${order.id}/pay`}
-											>
+										<Link
+											href={`/dashboard/my-orders/${order.id}/pay`}
+										>
+											<Button variant="outline" size="sm">
 												<CreditCard className="h-4 w-4 mr-1" />{" "}
 												Pay Now
-											</Link>
-										</Button>
+											</Button>
+										</Link>
 									)}
 							</TableCell>
 						</TableRow>

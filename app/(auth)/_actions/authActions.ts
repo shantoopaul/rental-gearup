@@ -1,8 +1,8 @@
 "use server";
-
 import { RegisterInput, LoginInput } from "@/lib/validations/auth";
-import { clearAccessToken, setAuthCookies } from "@/lib/cookies";
+import { clearAuthCookies, setAuthCookies } from "@/lib/cookies";
 import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
 
 const registerUser = async (data: RegisterInput) => {
 	const apiUrl = process.env.NEXT_PUBLIC_API_URL;
@@ -61,6 +61,7 @@ const loginUser = async (data: LoginInput) => {
 				result.data.accessToken,
 				result.data.refreshToken,
 			);
+			revalidatePath("/", "layout");
 		}
 
 		return {
@@ -78,8 +79,9 @@ const loginUser = async (data: LoginInput) => {
 };
 
 const logoutUser = async () => {
-	await clearAccessToken();
-	redirect("/auth/login");
+	await clearAuthCookies();
+	revalidatePath("/", "layout");
+	redirect("/login");
 };
 
 export { registerUser, loginUser, logoutUser };

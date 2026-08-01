@@ -26,7 +26,8 @@ export async function getAccessToken() {
 	return cookieStore.get("accessToken")?.value;
 }
 
-export async function clearAccessToken() {
+export async function clearAuthCookies() {
 	const cookieStore = await cookies();
 	cookieStore.delete("accessToken");
+	cookieStore.delete("refreshToken");
 }

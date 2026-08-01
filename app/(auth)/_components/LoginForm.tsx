@@ -43,6 +43,7 @@ const LoginForm = () => {
 						: role === "PROVIDER"
 							? "/provider-dashboard"
 							: "/dashboard";
+				router.refresh();
 				router.push(callbackUrl || fallback);
 			} else {
 				toast.error(result.message || "Login failed");

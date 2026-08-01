@@ -12,19 +12,10 @@ export async function getMe() {
 
 	try {
 		const res = await fetch(`${apiUrl}/auth/me`, {
-			headers: {
-				Authorization: `Bearer ${accessToken}`,
-			},
+			headers: { Authorization: `Bearer ${accessToken}` },
 			cache: "no-store",
 		});
-
-		if (!res.ok) {
-			if (res.status === 401) {
-				cookieStore.delete("accessToken");
-			}
-			return null;
-		}
-
+		if (!res.ok) return null;
 		const result = await res.json();
 		return result.data;
 	} catch (error) {
