@@ -41,7 +41,6 @@ const Navbar = ({ user }: { user: UserType }) => {
 					))}
 				</nav>
 
-				{/* Desktop Auth Buttons */}
 				<div className="hidden md:flex items-center gap-4">
 					{user ? (
 						<UserInfoNav user={user} />
@@ -91,20 +90,36 @@ const Navbar = ({ user }: { user: UserType }) => {
 							{link.label}
 						</Link>
 					))}
+
+					{/* Mobile Auth Buttons / Avatar */}
 					<div className="flex flex-col gap-2 pt-4 border-t">
-						<Link href="/login" onClick={() => setIsOpen(false)}>
-							<Button
-								variant="outline"
-								className="w-full justify-start"
-							>
-								<User className="mr-2 h-4 w-4" /> Log In
-							</Button>
-						</Link>
-						<Link href="/register" onClick={() => setIsOpen(false)}>
-							<Button className="w-full justify-start">
-								Sign Up
-							</Button>
-						</Link>
+						{user ? (
+							<div className="px-2 py-2">
+								<UserInfoNav user={user} />
+							</div>
+						) : (
+							<>
+								<Link
+									href="/login"
+									onClick={() => setIsOpen(false)}
+								>
+									<Button
+										variant="outline"
+										className="w-full justify-start"
+									>
+										<User className="mr-2 h-4 w-4" /> Log In
+									</Button>
+								</Link>
+								<Link
+									href="/register"
+									onClick={() => setIsOpen(false)}
+								>
+									<Button className="w-full justify-start">
+										Sign Up
+									</Button>
+								</Link>
+							</>
+						)}
 					</div>
 				</div>
 			)}
