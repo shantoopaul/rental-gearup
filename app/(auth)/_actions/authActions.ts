@@ -58,16 +58,6 @@ const loginUser = async (data: LoginInput) => {
 
 		if (result.data?.accessToken) {
 			await setAccessToken(result.data.accessToken);
-
-			// Redirect based on role
-			const role = result.data.user.role;
-			if (role === "ADMIN") {
-				redirect("/admin-dashboard");
-			} else if (role === "PROVIDER") {
-				redirect("/provider-dashboard");
-			} else {
-				redirect("/dashboard");
-			}
 		}
 
 		return {
