@@ -22,6 +22,7 @@ export interface RentalOrder {
 	gearItemId: string;
 	gearItem: GearItem;
 	payment?: Payment;
+	customer?: { id: string; name: string; email: string };
 }
 
 export interface Payment {
