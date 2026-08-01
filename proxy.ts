@@ -13,7 +13,7 @@ export function proxy(request: NextRequest) {
 		const accessToken = request.cookies.get("accessToken")?.value;
 
 		if (!accessToken) {
-			const loginUrl = new URL("/auth/login", request.url);
+			const loginUrl = new URL("/login", request.url);
 			loginUrl.searchParams.set("callbackUrl", pathname);
 			return NextResponse.redirect(loginUrl);
 		}

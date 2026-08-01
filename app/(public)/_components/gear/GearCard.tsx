@@ -64,14 +64,17 @@ const GearCard = ({ gear }: GearCardProps) => {
 						</span>
 					</span>
 				</div>
-				<Link href={`/gear/${gear.id}`}>
-					<InteractiveHoverButton
-						disabled={!gear.isAvailable}
-						className="py-3"
-					>
-						View Details
+				{gear.isAvailable ? (
+					<Link href={`/gear/${gear.id}`}>
+						<InteractiveHoverButton>
+							View Details
+						</InteractiveHoverButton>
+					</Link>
+				) : (
+					<InteractiveHoverButton disabled>
+						Unavailable
 					</InteractiveHoverButton>
-				</Link>
+				)}
 			</CardFooter>
 		</Card>
 	);

@@ -4,8 +4,10 @@ import Link from "next/link";
 import { Menu, X, User } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { UserInfoNav } from "./UserInfoNav";
+import { User as UserType } from "@/lib/types";
 
-const Navbar = () => {
+const Navbar = ({ user }: { user: UserType }) => {
 	const [isOpen, setIsOpen] = useState(false);
 
 	const navLinks = [
@@ -41,19 +43,25 @@ const Navbar = () => {
 
 				{/* Desktop Auth Buttons */}
 				<div className="hidden md:flex items-center gap-4">
-					<Link href="/login">
-						<Button
-							variant="ghost"
-							className="py-5 px-5 rounded-full"
-						>
-							Log In
-						</Button>
-					</Link>
-					<Link href="/register">
-						<Button className="py-5 px-5 rounded-full">
-							Sign Up
-						</Button>
-					</Link>
+					{user ? (
+						<UserInfoNav user={user} />
+					) : (
+						<>
+							<Link href="/login">
+								<Button
+									variant="ghost"
+									className="py-5 px-5 rounded-full"
+								>
+									Log In
+								</Button>
+							</Link>
+							<Link href="/register">
+								<Button className="py-5 px-5 rounded-full">
+									Sign Up
+								</Button>
+							</Link>
+						</>
+					)}
 				</div>
 
 				{/* Mobile Menu Button */}

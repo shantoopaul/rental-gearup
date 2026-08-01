@@ -1,7 +1,7 @@
 "use server";
 
 import { RegisterInput, LoginInput } from "@/lib/validations/auth";
-import { setAccessToken, clearAccessToken } from "@/lib/cookies";
+import { clearAccessToken, setAuthCookies } from "@/lib/cookies";
 import { redirect } from "next/navigation";
 
 const registerUser = async (data: RegisterInput) => {
@@ -56,8 +56,11 @@ const loginUser = async (data: LoginInput) => {
 			};
 		}
 
-		if (result.data?.accessToken) {
-			await setAccessToken(result.data.accessToken);
+		if (result.data?.accessToken && result.data?.refreshToken) {
+			await setAuthCookies(
+				result.data.accessToken,
+				result.data.refreshToken,
+			);
 		}
 
 		return {

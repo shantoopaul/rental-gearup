@@ -1,5 +1,40 @@
 export type Role = "CUSTOMER" | "PROVIDER" | "ADMIN";
 export type UserStatus = "ACTIVE" | "SUSPENDED";
+export type RentalStatus =
+	| "PLACED"
+	| "CONFIRMED"
+	| "PAID"
+	| "PICKED_UP"
+	| "RETURNED"
+	| "CANCELLED";
+export type PaymentStatus = "PENDING" | "COMPLETED" | "FAILED";
+
+export interface RentalOrder {
+	id: string;
+	startDate: string;
+	endDate: string;
+	quantity: number;
+	totalPrice: number | string;
+	status: RentalStatus;
+	createdAt: string;
+	updatedAt: string;
+	customerId: string;
+	gearItemId: string;
+	gearItem: GearItem;
+	payment?: Payment;
+}
+
+export interface Payment {
+	id: string;
+	transactionId: string;
+	amount: number | string;
+	method: "STRIPE" | "SSLCOMMERZ";
+	status: PaymentStatus;
+	paidAt?: string;
+	createdAt: string;
+	updatedAt: string;
+	rentalOrderId: string;
+}
 
 export interface User {
 	id: string;
@@ -14,8 +49,6 @@ export interface Category {
 	id: string;
 	name: string;
 }
-
-// lib/types.ts (Additions/Updates)
 
 export interface Review {
 	id: string;

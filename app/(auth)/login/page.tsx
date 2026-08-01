@@ -1,5 +1,6 @@
 import Link from "next/link";
 import LoginForm from "../_components/LoginForm";
+import { Suspense } from "react";
 
 const LoginPage = () => {
 	return (
@@ -12,7 +13,9 @@ const LoginPage = () => {
 					Enter your credentials to access your account
 				</p>
 			</div>
-			<LoginForm />
+			<Suspense>
+				<LoginForm />
+			</Suspense>
 			<p className="text-center text-sm text-muted-foreground">
 				Don&apos;t have an account?{" "}
 				<Link

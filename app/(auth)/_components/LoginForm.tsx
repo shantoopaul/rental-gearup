@@ -1,6 +1,6 @@
 "use client";
 import { useTransition } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema, type LoginInput } from "@/lib/validations/auth";
@@ -14,6 +14,9 @@ import { toast } from "sonner";
 const LoginForm = () => {
 	const [isPending, startTransition] = useTransition();
 	const router = useRouter();
+
+	const searchParams = useSearchParams();
+	const callbackUrl = searchParams.get("callbackUrl");
 
 	const {
 		register,
@@ -33,18 +36,14 @@ const LoginForm = () => {
 
 			if (result.success && result.data) {
 				toast.success(result.message);
-
-				localStorage.setItem("accessToken", result.data.accessToken);
-				localStorage.setItem("user", JSON.stringify(result.data.user));
-
 				const role = result.data.user.role;
-				if (role === "ADMIN") {
-					router.push("/admin-dashboard");
-				} else if (role === "PROVIDER") {
-					router.push("/provider-dashboard");
-				} else {
-					router.push("/dashboard");
-				}
+				const fallback =
+					role === "ADMIN"
+						? "/admin-dashboard"
+						: role === "PROVIDER"
+							? "/provider-dashboard"
+							: "/dashboard";
+				router.push(callbackUrl || fallback);
 			} else {
 				toast.error(result.message || "Login failed");
 			}

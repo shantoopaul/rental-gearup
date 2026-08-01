@@ -1,12 +1,22 @@
 import { cookies } from "next/headers";
 
-export async function setAccessToken(token: string) {
+export async function setAuthCookies(
+	accessToken: string,
+	refreshToken: string,
+) {
 	const cookieStore = await cookies();
-	cookieStore.set("accessToken", token, {
-		httpOnly: false,
+	cookieStore.set("accessToken", accessToken, {
+		httpOnly: true,
 		secure: process.env.NODE_ENV === "production",
 		sameSite: "strict",
 		maxAge: 60 * 15,
+		path: "/",
+	});
+	cookieStore.set("refreshToken", refreshToken, {
+		httpOnly: true,
+		secure: process.env.NODE_ENV === "production",
+		sameSite: "strict",
+		maxAge: 60 * 60 * 24 * 30,
 		path: "/",
 	});
 }
