@@ -56,10 +56,10 @@ const loginUser = async (data: LoginInput) => {
 			};
 		}
 
-		if (result.data?.accessToken && result.data?.refreshToken) {
+		if (result.data?.accessToken) {
 			await setAuthCookies(
 				result.data.accessToken,
-				result.data.refreshToken,
+				result.data.refreshToken || "",
 			);
 			revalidatePath("/", "layout");
 		}

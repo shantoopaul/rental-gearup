@@ -6,16 +6,16 @@ export async function setAuthCookies(
 ) {
 	const cookieStore = await cookies();
 	cookieStore.set("accessToken", accessToken, {
-		httpOnly: true,
-		secure: process.env.NODE_ENV === "production",
-		sameSite: "strict",
+		httpOnly: false,
+		secure: process.env.NODE_ENV === "development",
+		sameSite: "lax",
 		maxAge: 60 * 15,
 		path: "/",
 	});
 	cookieStore.set("refreshToken", refreshToken, {
 		httpOnly: true,
-		secure: process.env.NODE_ENV === "production",
-		sameSite: "strict",
+		secure: process.env.NODE_ENV === "development",
+		sameSite: "lax",
 		maxAge: 60 * 60 * 24 * 30,
 		path: "/",
 	});
