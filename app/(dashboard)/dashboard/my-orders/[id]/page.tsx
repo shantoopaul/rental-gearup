@@ -7,6 +7,7 @@ import { OrderStatusBadge } from "@/app/(dashboard)/_components/customer/my_orde
 import { PaymentStatusBadge } from "@/app/(dashboard)/_components/customer/payment_history/PaymentStatusBadge";
 import { Calendar, Package, CreditCard, ArrowLeft } from "lucide-react";
 import { RentalOrder } from "@/lib/types";
+import { ReviewButton } from "@/app/(dashboard)/_components/customer/my_orders/ReviewButton";
 
 const getRentalOrder = async (id: string): Promise<RentalOrder | null> => {
 	const cookieStore = await cookies();
@@ -171,14 +172,24 @@ export default async function OrderDetailsPage({
 								${Number(order.totalPrice).toFixed(2)}
 							</p>
 						</div>
-						{canPay && (
-							<Link href={`/dashboard/my-orders/${order.id}/pay`}>
-								<Button size="lg">
-									<CreditCard className="mr-2 h-4 w-4" /> Pay
-									Now
-								</Button>
-							</Link>
-						)}
+						<div className="flex gap-2">
+							{canPay && (
+								<Link
+									href={`/dashboard/my-orders/${order.id}/pay`}
+								>
+									<Button size="lg">
+										<CreditCard className="mr-2 h-4 w-4" />{" "}
+										Pay Now
+									</Button>
+								</Link>
+							)}
+							{order.status === "RETURNED" && (
+								<ReviewButton
+									orderId={order.id}
+									gearTitle={order.gearItem.title}
+								/>
+							)}
+						</div>
 					</div>
 
 					{order.payment && (

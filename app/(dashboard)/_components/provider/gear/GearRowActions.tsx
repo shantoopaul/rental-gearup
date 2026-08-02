@@ -3,17 +3,20 @@
 import { useState, useTransition } from "react";
 import { Button } from "@/components/ui/button";
 import { ConfirmDialog } from "@/components/ui/confirm-dialog";
+import { UpdateStockDialog } from "./UpdateStockDialog";
 import {
 	toggleGearAvailability,
 	deleteGear,
 } from "@/app/(dashboard)/_actions/providerGearActions";
 import { toast } from "sonner";
 import { GearItem } from "@/lib/types";
+import { Package } from "lucide-react";
 
 export const GearRowActions = ({ gear }: { gear: GearItem }) => {
 	const [isPending, startTransition] = useTransition();
 	const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
 	const [toggleDialogOpen, setToggleDialogOpen] = useState(false);
+	const [stockDialogOpen, setStockDialogOpen] = useState(false);
 
 	const handleToggleAvailability = () => {
 		startTransition(async () => {
@@ -48,12 +51,25 @@ export const GearRowActions = ({ gear }: { gear: GearItem }) => {
 				<Button
 					variant="outline"
 					size="sm"
+					onClick={() => setStockDialogOpen(true)}
+				>
+					<Package className="h-4 w-4 mr-1" /> Stock
+				</Button>
+				<Button
+					variant="outline"
+					size="sm"
 					onClick={() => setToggleDialogOpen(true)}
 					disabled={isPending}
 				>
 					{gear.isAvailable ? "Mark Unavailable" : "Mark Available"}
 				</Button>
 			</div>
+
+			<UpdateStockDialog
+				gear={gear}
+				open={stockDialogOpen}
+				onOpenChange={setStockDialogOpen}
+			/>
 
 			<ConfirmDialog
 				open={toggleDialogOpen}
@@ -74,7 +90,6 @@ export const GearRowActions = ({ gear }: { gear: GearItem }) => {
 				onConfirm={handleToggleAvailability}
 				isLoading={isPending}
 			/>
-
 			<ConfirmDialog
 				open={deleteDialogOpen}
 				onOpenChange={setDeleteDialogOpen}

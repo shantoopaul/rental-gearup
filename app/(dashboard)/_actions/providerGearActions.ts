@@ -45,6 +45,34 @@ export const createGear = async (data: GearInput) => {
 	}
 };
 
+export const updateGearStock = async (id: string, quantity: number) => {
+	const headers = await getHeaders();
+	if (!headers.Authorization)
+		return { success: false, message: "Unauthorized" };
+
+	const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+	try {
+		const res = await fetch(`${apiUrl}/provider/gear/${id}`, {
+			method: "PUT",
+			headers,
+			body: JSON.stringify({ quantity }),
+			cache: "no-store",
+		});
+		const result = await res.json();
+		if (!res.ok) {
+			return {
+				success: false,
+				message: result.message || "Failed to update stock",
+			};
+		}
+		revalidatePath("/provider-dashboard/my-gears");
+		return { success: true, message: "Stock updated successfully" };
+	} catch (error) {
+		console.error(error);
+		return { success: false, message: "An unexpected error occurred." };
+	}
+};
+
 export const deleteGear = async (id: string) => {
 	const headers = await getHeaders();
 	if (!headers.Authorization)

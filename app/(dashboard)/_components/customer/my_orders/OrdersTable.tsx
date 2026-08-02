@@ -12,8 +12,10 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { OrderStatusBadge } from "./OrderStatusBadge";
 import { useCustomerOrders } from "@/app/(dashboard)/_hooks/useCustomerOrders";
-import { Eye, CreditCard } from "lucide-react";
+import { Eye, CreditCard, MessageSquare } from "lucide-react";
 import Link from "next/link";
+import { useState } from "react";
+import { LeaveReviewDialog } from "./LeaveReviewDialog";
 
 const formatDate = (dateString: string) => {
 	return new Date(dateString).toLocaleDateString("en-US", {
@@ -27,6 +29,11 @@ const formatPrice = (price: number | string) => `$${Number(price).toFixed(2)}`;
 
 export const OrdersTable = () => {
 	const { orders, isLoading, isError } = useCustomerOrders();
+	const [reviewDialog, setReviewDialog] = useState<{
+		open: boolean;
+		orderId: string;
+		gearTitle: string;
+	}>({ open: false, orderId: "", gearTitle: "" });
 
 	if (isLoading) return <OrdersTableSkeleton />;
 	if (isError)
@@ -92,11 +99,37 @@ export const OrdersTable = () => {
 											</Button>
 										</Link>
 									)}
+								{order.status === "RETURNED" && (
+									<Button
+										variant="outline"
+										size="sm"
+										onClick={() =>
+											setReviewDialog({
+												open: true,
+												orderId: order.id,
+												gearTitle:
+													order.gearItem?.title ||
+													"Gear",
+											})
+										}
+									>
+										<MessageSquare className="h-4 w-4 mr-1" />{" "}
+										Review
+									</Button>
+								)}
 							</TableCell>
 						</TableRow>
 					))}
 				</TableBody>
 			</Table>
+			<LeaveReviewDialog
+				rentalOrderId={reviewDialog.orderId}
+				gearTitle={reviewDialog.gearTitle}
+				open={reviewDialog.open}
+				onOpenChange={(open) =>
+					setReviewDialog((prev) => ({ ...prev, open }))
+				}
+			/>
 		</div>
 	);
 };
