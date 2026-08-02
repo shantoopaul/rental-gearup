@@ -93,8 +93,10 @@ export default async function OrderDetailsPage({
 								{order.gearItem.title}
 							</h3>
 							<p className="text-sm text-muted-foreground">
-								{order.gearItem.brand} •{" "}
-								{order.gearItem.category.name}
+								{order.gearItem.brand}
+								{order.gearItem.category?.name
+									? ` • ${order.gearItem.category.name}`
+									: ""}
 							</p>
 						</div>
 						<div className="grid grid-cols-2 gap-4 text-sm">
