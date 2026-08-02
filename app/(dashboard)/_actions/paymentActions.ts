@@ -6,12 +6,13 @@ import { redirect } from "next/navigation";
 export const initiatePayment = async (rentalOrderId: string) => {
 	const cookieStore = await cookies();
 	const accessToken = cookieStore.get("accessToken")?.value;
+
 	if (!accessToken) {
 		redirect("/login");
 	}
 
 	const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-	let checkoutUrl: string | undefined;
+	let checkoutUrl: string | null = null;
 
 	try {
 		const res = await fetch(`${apiUrl}/payments/create`, {
@@ -24,14 +25,14 @@ export const initiatePayment = async (rentalOrderId: string) => {
 			cache: "no-store",
 		});
 
-		const result = await res.json();
 		if (!res.ok) {
-			throw new Error(
-				result.message || "Failed to create payment session",
-			);
+			const err = await res.json();
+			throw new Error(err.message || "Failed to create payment session");
 		}
 
+		const result = await res.json();
 		checkoutUrl = result.data?.checkoutUrl;
+
 		if (!checkoutUrl) {
 			throw new Error("No checkout URL returned from payment provider");
 		}
