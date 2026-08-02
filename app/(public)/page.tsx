@@ -5,8 +5,14 @@ import { ArrowRight, ShieldCheck, Clock, Star } from "lucide-react";
 import FeaturedGear from "./_components/gear/FeaturedGear";
 import { Suspense } from "react";
 import GearGridSkeleton from "./_components/gear/GearGridSkeleton";
+import { CategoryGrid } from "./_components/home/CategoryGrid";
+import getCategories from "./_actions/getCategoryBrand";
 
-const HomePage = () => {
+const HomePage = async () => {
+	const categoriesResponse = await getCategories();
+	const categories = categoriesResponse.success
+		? categoriesResponse.data
+		: [];
 	return (
 		<div className="flex flex-col">
 			{/* Hero Section */}
@@ -36,6 +42,8 @@ const HomePage = () => {
 					</div>
 				</div>
 			</section>
+
+			{categories.length > 0 && <CategoryGrid categories={categories} />}
 
 			{/* Featured Gear Section */}
 			<section className="py-16 md:py-24 bg-muted/30">
