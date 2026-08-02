@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { createRentalAndPay } from "../../_actions/rentActions";
+import { createRental } from "../../_actions/rentActions";
 import { toast } from "sonner";
 
 interface RentGearFormProps {
@@ -20,7 +20,6 @@ export const RentGearForm = ({
 	maxQuantity,
 }: RentGearFormProps) => {
 	const [isPending, startTransition] = useTransition();
-
 	const today = new Date().toISOString().split("T")[0];
 	const [startDate, setStartDate] = useState("");
 	const [endDate, setEndDate] = useState("");
@@ -42,7 +41,6 @@ export const RentGearForm = ({
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-
 		if (!startDate || !endDate) {
 			toast.error("Please select both start and end dates.");
 			return;
@@ -53,10 +51,9 @@ export const RentGearForm = ({
 		}
 
 		const formData = new FormData(e.currentTarget);
-
 		startTransition(async () => {
 			try {
-				await createRentalAndPay(formData);
+				await createRental(formData);
 			} catch (error) {
 				if (error instanceof Error) {
 					toast.error(
@@ -76,7 +73,6 @@ export const RentGearForm = ({
 			<CardContent>
 				<form onSubmit={handleSubmit} className="space-y-4">
 					<input type="hidden" name="gearItemId" value={gearId} />
-
 					<div className="grid grid-cols-2 gap-4">
 						<div className="space-y-2">
 							<Label htmlFor="startDate">Start Date</Label>
@@ -103,7 +99,6 @@ export const RentGearForm = ({
 							/>
 						</div>
 					</div>
-
 					<div className="space-y-2">
 						<Label htmlFor="quantity">
 							Quantity (Max: {maxQuantity})
@@ -121,7 +116,6 @@ export const RentGearForm = ({
 							required
 						/>
 					</div>
-
 					{days > 0 && (
 						<div className="rounded-lg bg-muted p-4 space-y-2">
 							<div className="flex justify-between text-sm text-muted-foreground">
@@ -141,14 +135,13 @@ export const RentGearForm = ({
 							</div>
 						</div>
 					)}
-
 					<Button
 						type="submit"
 						className="w-full"
 						size="lg"
 						disabled={isPending || days <= 0}
 					>
-						{isPending ? "Processing..." : "Rent Now & Pay"}
+						{isPending ? "Processing..." : "Request Rental"}
 					</Button>
 				</form>
 			</CardContent>

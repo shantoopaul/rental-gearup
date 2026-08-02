@@ -3,10 +3,9 @@
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 
-export const createRentalAndPay = async (formData: FormData) => {
+export const createRental = async (formData: FormData) => {
 	const cookieStore = await cookies();
 	const accessToken = cookieStore.get("accessToken")?.value;
-
 	if (!accessToken) {
 		redirect("/login?callbackUrl=/gear");
 	}
@@ -40,36 +39,13 @@ export const createRentalAndPay = async (formData: FormData) => {
 			const err = await rentalRes.json();
 			throw new Error(err.message || "Failed to create rental order");
 		}
-
-		const rentalData = await rentalRes.json();
-		const rentalOrderId = rentalData.data.id;
-
-		const paymentRes = await fetch(`${apiUrl}/payments/create`, {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Bearer ${accessToken}`,
-			},
-			body: JSON.stringify({ rentalOrderId }),
-		});
-
-		if (!paymentRes.ok) {
-			const err = await paymentRes.json();
-			throw new Error(err.message || "Failed to create payment session");
-		}
-
-		const paymentData = await paymentRes.json();
-		const checkoutUrl = paymentData.data.checkoutUrl;
-
-		if (checkoutUrl) {
-			redirect(checkoutUrl);
-		} else {
-			throw new Error("No checkout URL returned from payment provider");
-		}
 	} catch (error) {
-		console.error("Rental/Payment error:", error);
+		console.error("Rental error:", error);
 		if (error instanceof Error) {
 			throw new Error(error.message || "An unexpected error occurred");
 		}
+		throw new Error("An unexpected error occurred");
 	}
+
+	redirect("/dashboard/my-orders?rental_created=true");
 };
