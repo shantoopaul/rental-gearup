@@ -6,7 +6,7 @@ export const metadata: Metadata = {
 	description: "Manage incoming rental orders for your gear.",
 };
 
-export default function ProviderOrdersPage() {
+const ProviderOrdersPage = () => {
 	return (
 		<div className="space-y-6">
 			<div>
@@ -21,4 +21,6 @@ export default function ProviderOrdersPage() {
 			<ProviderOrdersTable />
 		</div>
 	);
-}
+};
+
+export default ProviderOrdersPage;

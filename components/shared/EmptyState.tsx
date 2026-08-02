@@ -10,13 +10,13 @@ interface EmptyStateProps {
 	className?: string;
 }
 
-export function EmptyState({
+export const EmptyState = ({
 	icon: Icon,
 	title,
 	description,
 	action,
 	className,
-}: EmptyStateProps) {
+}: EmptyStateProps) => {
 	return (
 		<Card className={cn("border-dashed bg-muted/30", className)}>
 			<CardContent className="flex flex-col items-center justify-center py-16 text-center">
@@ -31,4 +31,4 @@ export function EmptyState({
 			</CardContent>
 		</Card>
 	);
-}
+};

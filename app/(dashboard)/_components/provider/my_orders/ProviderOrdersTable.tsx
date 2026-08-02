@@ -29,7 +29,7 @@ const formatDate = (dateString: string) => {
 
 const formatPrice = (price: number | string) => `$${Number(price).toFixed(2)}`;
 
-export function ProviderOrdersTable() {
+export const ProviderOrdersTable = () => {
 	const { orders, isLoading, isError, mutate } = useProviderOrders();
 	const [isPending, startTransition] = useTransition();
 
@@ -172,9 +172,9 @@ export function ProviderOrdersTable() {
 			</Table>
 		</div>
 	);
-}
+};
 
-function ProviderOrdersTableSkeleton() {
+const ProviderOrdersTableSkeleton = () => {
 	return (
 		<div className="rounded-md border bg-card">
 			<Table>
@@ -223,4 +223,4 @@ function ProviderOrdersTableSkeleton() {
 			</Table>
 		</div>
 	);
-}
+};

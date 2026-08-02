@@ -4,7 +4,10 @@ import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 import { RentalStatus } from "@/lib/types";
 
-export async function updateOrderStatus(orderId: string, status: RentalStatus) {
+export const updateOrderStatus = async (
+	orderId: string,
+	status: RentalStatus,
+) => {
 	const cookieStore = await cookies();
 	const accessToken = cookieStore.get("accessToken")?.value;
 
@@ -47,4 +50,4 @@ export async function updateOrderStatus(orderId: string, status: RentalStatus) {
 			message: "An unexpected error occurred. Please try again.",
 		};
 	}
-}
+};

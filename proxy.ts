@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-export function proxy(request: NextRequest) {
+export const proxy = (request: NextRequest) => {
 	const { pathname } = request.nextUrl;
 
 	const isProtectedRoute =
@@ -20,7 +20,7 @@ export function proxy(request: NextRequest) {
 	}
 
 	return NextResponse.next();
-}
+};
 
 export const config = {
 	matcher: [

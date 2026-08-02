@@ -11,13 +11,13 @@ import {
 import { AlertTriangle } from "lucide-react";
 import { useEffect } from "react";
 
-export default function Error({
+const Error = ({
 	error,
 	reset,
 }: {
 	error: Error & { digest?: string };
 	reset: () => void;
-}) {
+}) => {
 	useEffect(() => {
 		console.error(error);
 	}, [error]);
@@ -59,4 +59,6 @@ export default function Error({
 			</Card>
 		</div>
 	);
-}
+};
+
+export default Error;

@@ -11,7 +11,7 @@ interface MobileMenuButtonsProps {
 	userRole: Role;
 }
 
-export function MobileMenuButtons({ userRole }: MobileMenuButtonsProps) {
+export const MobileMenuButtons = ({ userRole }: MobileMenuButtonsProps) => {
 	const [open, setOpen] = useState(false);
 
 	return (
@@ -69,4 +69,4 @@ export function MobileMenuButtons({ userRole }: MobileMenuButtonsProps) {
 			</AnimatePresence>
 		</>
 	);
-}
+};

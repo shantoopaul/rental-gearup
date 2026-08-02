@@ -9,11 +9,7 @@ import { decodeToken } from "@/utils/jwt";
 import { Role } from "@/lib/types";
 import { SWRProvider } from "@/providers/SWRProvider";
 
-export default async function DashboardLayout({
-	children,
-}: {
-	children: React.ReactNode;
-}) {
+const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
 	const cookieStore = await cookies();
 	const accessToken = cookieStore.get("accessToken")?.value;
 
@@ -61,4 +57,6 @@ export default async function DashboardLayout({
 			</div>
 		</SWRProvider>
 	);
-}
+};
+
+export default DashboardLayout;

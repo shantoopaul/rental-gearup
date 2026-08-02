@@ -15,7 +15,7 @@ interface SidebarProps {
 	onLinkClick?: () => void;
 }
 
-export function Sidebar({ userRole, onLinkClick }: SidebarProps) {
+export const Sidebar = ({ userRole, onLinkClick }: SidebarProps) => {
 	const pathname = usePathname();
 	const [isPending, startTransition] = useTransition();
 
@@ -67,4 +67,4 @@ export function Sidebar({ userRole, onLinkClick }: SidebarProps) {
 			</div>
 		</div>
 	);
-}
+};

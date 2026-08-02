@@ -11,7 +11,7 @@ interface UserInfoNavProps {
 	user: UserType;
 }
 
-export function UserInfoNav({ user }: UserInfoNavProps) {
+export const UserInfoNav = ({ user }: UserInfoNavProps) => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [isPending, startTransition] = useTransition();
 	const dropdownRef = useRef<HTMLDivElement>(null);
@@ -22,13 +22,13 @@ export function UserInfoNav({ user }: UserInfoNavProps) {
 		});
 
 	useEffect(() => {
-		function handleClickOutside(event: MouseEvent) {
+		const handleClickOutside = (event: MouseEvent) => {
 			if (
 				dropdownRef.current &&
 				!dropdownRef.current.contains(event.target as Node)
 			)
 				setIsOpen(false);
-		}
+		};
 		document.addEventListener("mousedown", handleClickOutside);
 		return () =>
 			document.removeEventListener("mousedown", handleClickOutside);
@@ -87,4 +87,4 @@ export function UserInfoNav({ user }: UserInfoNavProps) {
 			)}
 		</div>
 	);
-}
+};

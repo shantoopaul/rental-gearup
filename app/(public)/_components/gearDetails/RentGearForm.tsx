@@ -14,11 +14,11 @@ interface RentGearFormProps {
 	maxQuantity: number;
 }
 
-export function RentGearForm({
+export const RentGearForm = ({
 	gearId,
 	pricePerDay,
 	maxQuantity,
-}: RentGearFormProps) {
+}: RentGearFormProps) => {
 	const [isPending, startTransition] = useTransition();
 
 	const today = new Date().toISOString().split("T")[0];
@@ -154,4 +154,4 @@ export function RentGearForm({
 			</CardContent>
 		</Card>
 	);
-}
+};

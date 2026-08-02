@@ -9,7 +9,7 @@ import {
 	CardTitle,
 } from "@/components/ui/card";
 
-export default function PaymentSuccessPage() {
+const PaymentSuccessPage = () => {
 	return (
 		<div className="flex min-h-[calc(100vh-16rem)] items-center justify-center bg-muted/30 p-4">
 			<Card className="max-w-md w-full text-center">
@@ -41,4 +41,6 @@ export default function PaymentSuccessPage() {
 			</Card>
 		</div>
 	);
-}
+};
+
+export default PaymentSuccessPage;

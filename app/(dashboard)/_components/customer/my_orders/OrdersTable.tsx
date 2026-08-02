@@ -25,7 +25,7 @@ const formatDate = (dateString: string) => {
 
 const formatPrice = (price: number | string) => `$${Number(price).toFixed(2)}`;
 
-export function OrdersTable() {
+export const OrdersTable = () => {
 	const { orders, isLoading, isError } = useCustomerOrders();
 
 	if (isLoading) return <OrdersTableSkeleton />;
@@ -99,9 +99,9 @@ export function OrdersTable() {
 			</Table>
 		</div>
 	);
-}
+};
 
-function OrdersTableSkeleton() {
+const OrdersTableSkeleton = () => {
 	return (
 		<div className="rounded-md border">
 			<Table>
@@ -142,4 +142,4 @@ function OrdersTableSkeleton() {
 			</Table>
 		</div>
 	);
-}
+};

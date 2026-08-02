@@ -6,7 +6,7 @@ export const metadata: Metadata = {
 	description: "View your rental payment history and transactions.",
 };
 
-export default function PaymentHistoryPage() {
+const PaymentHistoryPage = () => {
 	return (
 		<div className="space-y-6">
 			<div>
@@ -20,4 +20,6 @@ export default function PaymentHistoryPage() {
 			<PaymentsTable />
 		</div>
 	);
-}
+};
+
+export default PaymentHistoryPage;

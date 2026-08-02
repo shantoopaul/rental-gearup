@@ -2,7 +2,7 @@
 import useSWR from "swr";
 import { RentalOrder } from "@/lib/types";
 
-export function useProviderOrders() {
+export const useProviderOrders = () => {
 	const { data, error, isLoading, mutate } =
 		useSWR<RentalOrder[]>("/provider/orders");
 	return {
@@ -11,4 +11,4 @@ export function useProviderOrders() {
 		isError: error,
 		mutate,
 	};
-}
+};

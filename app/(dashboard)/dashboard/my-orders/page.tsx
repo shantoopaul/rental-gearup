@@ -6,7 +6,7 @@ export const metadata: Metadata = {
 	description: "View and manage your rental orders.",
 };
 
-export default function MyOrdersPage() {
+const MyOrdersPage = () => {
 	return (
 		<div className="space-y-6">
 			<div>
@@ -18,4 +18,6 @@ export default function MyOrdersPage() {
 			<OrdersTable />
 		</div>
 	);
-}
+};
+
+export default MyOrdersPage;

@@ -24,7 +24,7 @@ const statusConfig: Record<
 	},
 };
 
-export function PaymentStatusBadge({ status }: PaymentStatusBadgeProps) {
+export const PaymentStatusBadge = ({ status }: PaymentStatusBadgeProps) => {
 	const config = statusConfig[status];
 	return (
 		<Badge
@@ -34,4 +34,4 @@ export function PaymentStatusBadge({ status }: PaymentStatusBadgeProps) {
 			{config.label}
 		</Badge>
 	);
-}
+};

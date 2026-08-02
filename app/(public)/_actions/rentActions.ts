@@ -3,7 +3,7 @@
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 
-export async function createRentalAndPay(formData: FormData) {
+export const createRentalAndPay = async (formData: FormData) => {
 	const cookieStore = await cookies();
 	const accessToken = cookieStore.get("accessToken")?.value;
 
@@ -72,4 +72,4 @@ export async function createRentalAndPay(formData: FormData) {
 			throw new Error(error.message || "An unexpected error occurred");
 		}
 	}
-}
+};

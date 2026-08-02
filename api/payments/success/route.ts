@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
 
-export async function GET(request: NextRequest) {
+export const GET = async (request: NextRequest) => {
 	const searchParams = request.nextUrl.searchParams;
 	const sessionId = searchParams.get("session_id");
 
@@ -29,4 +29,4 @@ export async function GET(request: NextRequest) {
 	}
 
 	return NextResponse.redirect(new URL("/payment/success", request.url));
-}
+};

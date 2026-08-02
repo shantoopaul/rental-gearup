@@ -35,7 +35,7 @@ const statusConfig: Record<RentalStatus, { label: string; className: string }> =
 		},
 	};
 
-export function OrderStatusBadge({ status }: OrderStatusBadgeProps) {
+export const OrderStatusBadge = ({ status }: OrderStatusBadgeProps) => {
 	const config = statusConfig[status];
 	return (
 		<Badge
@@ -45,4 +45,4 @@ export function OrderStatusBadge({ status }: OrderStatusBadgeProps) {
 			{config.label}
 		</Badge>
 	);
-}
+};

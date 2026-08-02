@@ -3,7 +3,7 @@
 import useSWR from "swr";
 import { Payment } from "@/lib/types";
 
-export function useCustomerPayments() {
+export const useCustomerPayments = () => {
 	const { data, error, isLoading, mutate } = useSWR<Payment[]>("/payments");
 
 	return {
@@ -12,4 +12,4 @@ export function useCustomerPayments() {
 		isError: error,
 		mutate,
 	};
-}
+};

@@ -2,7 +2,7 @@
 
 import { cookies } from "next/headers";
 
-export async function getMe() {
+export const getMe = async () => {
 	const cookieStore = await cookies();
 	const accessToken = cookieStore.get("accessToken")?.value;
 
@@ -22,4 +22,4 @@ export async function getMe() {
 		console.error("getMe error:", error);
 		return null;
 	}
-}
+};

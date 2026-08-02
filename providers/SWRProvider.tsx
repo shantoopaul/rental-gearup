@@ -21,10 +21,10 @@ const fetcher = async (url: string) => {
 	}
 
 	const result = await res.json();
-	return result.data; // Backend wraps responses in { success: true, data: ... }
+	return result.data;
 };
 
-export function SWRProvider({ children }: { children: ReactNode }) {
+export const SWRProvider = ({ children }: { children: ReactNode }) => {
 	return (
 		<SWRConfig
 			value={{
@@ -36,4 +36,4 @@ export function SWRProvider({ children }: { children: ReactNode }) {
 			{children}
 		</SWRConfig>
 	);
-}
+};
