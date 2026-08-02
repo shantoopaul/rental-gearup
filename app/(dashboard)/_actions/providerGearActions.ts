@@ -34,6 +34,8 @@ export const createGear = async (data: GearInput) => {
 			};
 
 		revalidatePath("/provider-dashboard/my-gears");
+		revalidatePath("/gear");
+		revalidatePath("/");
 		return {
 			success: true,
 			message: "Gear created successfully",
@@ -59,13 +61,16 @@ export const updateGearStock = async (id: string, quantity: number) => {
 			cache: "no-store",
 		});
 		const result = await res.json();
-		if (!res.ok) {
+		if (!res.ok)
 			return {
 				success: false,
 				message: result.message || "Failed to update stock",
 			};
-		}
+
 		revalidatePath("/provider-dashboard/my-gears");
+		revalidatePath(`/gear/${id}`);
+		revalidatePath("/gear");
+		revalidatePath("/");
 		return { success: true, message: "Stock updated successfully" };
 	} catch (error) {
 		console.error(error);
@@ -93,6 +98,8 @@ export const deleteGear = async (id: string) => {
 			};
 
 		revalidatePath("/provider-dashboard/my-gears");
+		revalidatePath("/gear");
+		revalidatePath("/");
 		return { success: true, message: "Gear removed successfully" };
 	} catch (error) {
 		console.error(error);
@@ -124,6 +131,9 @@ export const toggleGearAvailability = async (
 			};
 
 		revalidatePath("/provider-dashboard/my-gears");
+		revalidatePath(`/gear/${id}`);
+		revalidatePath("/gear");
+		revalidatePath("/");
 		return { success: true, message: "Gear availability updated" };
 	} catch (error) {
 		console.error(error);

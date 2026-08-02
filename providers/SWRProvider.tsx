@@ -3,6 +3,7 @@
 import { SWRConfig } from "swr";
 import { ReactNode } from "react";
 import { getAccessToken } from "@/services/getAccessToken";
+import { logoutUser } from "@/app/(auth)/_actions/authActions";
 
 const fetcher = async (url: string) => {
 	const token = getAccessToken();
@@ -14,6 +15,11 @@ const fetcher = async (url: string) => {
 			"Content-Type": "application/json",
 		},
 	});
+
+	if (res.status === 401 && token) {
+		logoutUser();
+		throw new Error("Session expired. Please log in again.");
+	}
 
 	if (!res.ok) {
 		const errorData = await res.json().catch(() => ({}));

@@ -1,8 +1,10 @@
 "use client";
+
 import { useState, useRef, useEffect } from "react";
+import Link from "next/link";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { User, LogOut, Calendar, Shield } from "lucide-react";
+import { User, LogOut, Calendar, Shield, LayoutDashboard } from "lucide-react";
 import { useTransition } from "react";
 import { logoutUser } from "@/app/(auth)/_actions/authActions";
 import { User as UserType } from "@/lib/types";
@@ -49,6 +51,13 @@ export const UserInfoNav = ({ user }: UserInfoNavProps) => {
 		.toUpperCase()
 		.slice(0, 2);
 
+	const dashboardHref =
+		user.role === "ADMIN"
+			? "/admin-dashboard"
+			: user.role === "PROVIDER"
+				? "/provider-dashboard"
+				: "/dashboard";
+
 	return (
 		<>
 			<div className="relative" ref={dropdownRef}>
@@ -75,6 +84,17 @@ export const UserInfoNav = ({ user }: UserInfoNavProps) => {
 							</p>
 						</div>
 						<div className="h-px my-1 -mx-1 bg-border" />
+
+						{/* Dashboard Link */}
+						<Link
+							href={dashboardHref}
+							className="relative flex w-full cursor-pointer select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors hover:bg-accent hover:text-accent-foreground"
+							onClick={() => setIsOpen(false)}
+						>
+							<LayoutDashboard className="mr-2 h-4 w-4" />
+							<span>Dashboard</span>
+						</Link>
+
 						<button
 							className="relative flex w-full cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors hover:bg-accent hover:text-accent-foreground"
 							onClick={() => {

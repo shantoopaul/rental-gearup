@@ -80,7 +80,11 @@ const loginUser = async (data: LoginInput) => {
 
 const logoutUser = async () => {
 	await clearAuthCookies();
+
 	revalidatePath("/", "layout");
+	revalidatePath("/gear");
+	revalidatePath("/dashboard", "layout");
+
 	redirect("/login");
 };
 
