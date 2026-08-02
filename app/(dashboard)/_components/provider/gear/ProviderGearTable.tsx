@@ -51,17 +51,17 @@ export const ProviderGearTable = () => {
 	}
 
 	return (
-		<div className="rounded-md border bg-card">
+		<div className="rounded-md border bg-card text-center">
 			<Table>
 				<TableHeader>
 					<TableRow>
-						<TableHead>Item</TableHead>
-						<TableHead>Category</TableHead>
-						<TableHead>Brand</TableHead>
-						<TableHead>Price/Day</TableHead>
-						<TableHead>Stock</TableHead>
-						<TableHead>Status</TableHead>
-						<TableHead className="text-right">Actions</TableHead>
+						<TableHead className="text-center">Item</TableHead>
+						<TableHead className="text-center">Category</TableHead>
+						<TableHead className="text-center">Brand</TableHead>
+						<TableHead className="text-center">Price/Day</TableHead>
+						<TableHead className="text-center">Stock</TableHead>
+						<TableHead className="text-center">Status</TableHead>
+						<TableHead className="text-center">Actions</TableHead>
 					</TableRow>
 				</TableHeader>
 				<TableBody>
@@ -109,7 +109,7 @@ export const ProviderGearTable = () => {
 									</span>
 								)}
 							</TableCell>
-							<TableCell className="text-right">
+							<TableCell className="flex justify-center">
 								<GearRowActions gear={gear} />
 							</TableCell>
 						</TableRow>

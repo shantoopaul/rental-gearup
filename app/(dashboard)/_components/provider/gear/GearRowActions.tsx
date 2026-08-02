@@ -3,7 +3,6 @@
 import { useState, useTransition } from "react";
 import { Button } from "@/components/ui/button";
 import { ConfirmDialog } from "@/components/ui/confirm-dialog";
-import { Trash2 } from "lucide-react";
 import {
 	toggleGearAvailability,
 	deleteGear,
@@ -53,15 +52,6 @@ export const GearRowActions = ({ gear }: { gear: GearItem }) => {
 					disabled={isPending}
 				>
 					{gear.isAvailable ? "Mark Unavailable" : "Mark Available"}
-				</Button>
-				<Button
-					variant="ghost"
-					size="icon-sm"
-					className="text-destructive hover:bg-destructive/10"
-					onClick={() => setDeleteDialogOpen(true)}
-					disabled={isPending}
-				>
-					<Trash2 className="h-4 w-4" />
 				</Button>
 			</div>
 

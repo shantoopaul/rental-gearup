@@ -74,7 +74,7 @@ export const ProviderGearForm = ({ categories }: ProviderGearFormProps) => {
 	};
 
 	return (
-		<Card className="max-w-3xl mx-auto">
+		<Card className="max-w-5xl mx-auto">
 			<CardHeader>
 				<CardTitle className="text-2xl">Add New Gear</CardTitle>
 			</CardHeader>
@@ -138,7 +138,7 @@ export const ProviderGearForm = ({ categories }: ProviderGearFormProps) => {
 								step="0.01"
 								{...register("pricePerDay", {
 									valueAsNumber: true,
-								})} // Converts string input to number for Zod
+								})}
 								disabled={isPending}
 							/>
 							{errors.pricePerDay && (
@@ -154,7 +154,7 @@ export const ProviderGearForm = ({ categories }: ProviderGearFormProps) => {
 								type="number"
 								{...register("quantity", {
 									valueAsNumber: true,
-								})} // Converts string input to number for Zod
+								})}
 								disabled={isPending}
 							/>
 							{errors.quantity && (
@@ -240,7 +240,6 @@ export const ProviderGearForm = ({ categories }: ProviderGearFormProps) => {
 								</div>
 							))}
 						</div>
-						{/* RHF v7.84+ places array-level schema errors under .root */}
 						{errors.images?.root?.message && (
 							<p className="text-sm text-destructive">
 								{errors.images.root.message}
@@ -248,7 +247,7 @@ export const ProviderGearForm = ({ categories }: ProviderGearFormProps) => {
 						)}
 					</div>
 				</CardContent>
-				<CardFooter className="flex justify-end gap-3">
+				<CardFooter className="flex justify-end gap-3 mt-4">
 					<Button
 						type="button"
 						variant="outline"
