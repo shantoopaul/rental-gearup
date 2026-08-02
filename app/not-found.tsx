@@ -4,7 +4,7 @@ import { PulsatingButton } from "@/components/ui/pulsating-button";
 
 const NotFound = () => {
 	return (
-		<div className="flex min-h-[calc(100vh-16rem)] flex-col items-center justify-center bg-muted/30 p-5 md:p-8 text-center">
+		<div className="flex min-h-screen flex-col items-center justify-center bg-muted/30 p-5 md:p-8 text-center">
 			<div className="bg-background rounded-full p-6 mb-6 shadow-sm border">
 				<SearchX className="h-12 w-12 text-destructive" />
 			</div>

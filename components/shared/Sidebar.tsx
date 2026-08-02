@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import { sidebarItems } from "@/app/(dashboard)/_config/sidebarMenuItems";
 import { Role } from "@/lib/types";
 import { Button } from "@/components/ui/button";
-import { LogOut } from "lucide-react";
+import { LogOut, Home } from "lucide-react";
 import { logoutUser } from "@/app/(auth)/_actions/authActions";
 import { useTransition } from "react";
 
@@ -54,7 +54,16 @@ export const Sidebar = ({ userRole, onLinkClick }: SidebarProps) => {
 					);
 				})}
 			</nav>
-			<div className="px-3 mt-auto">
+			<div className="px-3 mt-auto flex flex-col gap-3">
+				<Link href={"/"}>
+					<Button
+						variant="outline"
+						className="w-full justify-start gap-3 text-primary hover:bg-primary/10 hover:text-primary"
+					>
+						<Home className="h-4 w-4" />
+						Home Page
+					</Button>
+				</Link>
 				<Button
 					variant="outline"
 					className="w-full justify-start gap-3 text-destructive hover:bg-destructive/10 hover:text-destructive"

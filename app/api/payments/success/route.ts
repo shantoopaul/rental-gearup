@@ -1,16 +1,18 @@
 import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
 
+export const dynamic = "force-dynamic";
+
 export const GET = async (request: NextRequest) => {
 	const searchParams = request.nextUrl.searchParams;
 	const sessionId = searchParams.get("session_id");
 
-	const cookieStore = await cookies();
-	const accessToken = cookieStore.get("accessToken")?.value;
-
 	if (!sessionId) {
 		return NextResponse.redirect(new URL("/payment/cancel", request.url));
 	}
+
+	const cookieStore = await cookies();
+	const accessToken = cookieStore.get("accessToken")?.value;
 
 	if (accessToken) {
 		try {

@@ -11,7 +11,7 @@ import {
 
 const PaymentSuccessPage = () => {
 	return (
-		<div className="flex min-h-[calc(100vh-16rem)] items-center justify-center bg-muted/30 p-4">
+		<div className="flex min-h-screen items-center justify-center bg-muted/30 p-4">
 			<Card className="max-w-md w-full text-center">
 				<CardHeader>
 					<div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-green-100 mb-4">

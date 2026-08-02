@@ -1,6 +1,7 @@
 import "@/app/globals.css";
 import { cn } from "@/lib/utils";
 import { Montserrat } from "next/font/google";
+import { Toaster } from "sonner";
 
 const montserrat = Montserrat({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -17,7 +18,10 @@ const RootLayout = ({
 				montserrat.variable,
 			)}
 		>
-			<body>{children}</body>
+			<body>
+				<Toaster />
+				{children}
+			</body>
 		</html>
 	);
 };
