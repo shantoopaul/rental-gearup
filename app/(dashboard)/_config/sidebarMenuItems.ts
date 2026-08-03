@@ -95,7 +95,7 @@ export const sidebarItems: SidebarItem[] = [
 	},
 	{
 		title: "Categories",
-		href: "/admin-dashboard/add-category",
+		href: "/admin-dashboard/categories",
 		icon: Settings,
 		roles: ["ADMIN"],
 	},
