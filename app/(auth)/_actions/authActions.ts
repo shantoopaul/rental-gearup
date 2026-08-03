@@ -3,6 +3,7 @@ import { RegisterInput, LoginInput } from "@/lib/validations/auth";
 import { clearAuthCookies, setAuthCookies } from "@/lib/cookies";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
+import { cookies } from "next/headers";
 
 const registerUser = async (data: RegisterInput) => {
 	const apiUrl = process.env.NEXT_PUBLIC_API_URL;
@@ -88,4 +89,51 @@ const logoutUser = async () => {
 	redirect("/login");
 };
 
-export { registerUser, loginUser, logoutUser };
+const refreshAccessToken = async () => {
+	const cookieStore = await cookies();
+	const refreshToken = cookieStore.get("refreshToken")?.value;
+
+	if (!refreshToken) return { success: false };
+
+	const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+	try {
+		const res = await fetch(`${apiUrl}/auth/refresh-token`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				Cookie: `refreshToken=${refreshToken}`,
+			},
+			cache: "no-store",
+		});
+
+		if (!res.ok) return { success: false };
+
+		const result = await res.json();
+		if (result.data?.accessToken) {
+			cookieStore.set("accessToken", result.data.accessToken, {
+				httpOnly: false,
+				secure: process.env.NODE_ENV === "production",
+				sameSite: "lax",
+				maxAge: 60 * 15,
+				path: "/",
+			});
+			return { success: true, accessToken: result.data.accessToken };
+		}
+		return { success: false };
+	} catch (error) {
+		console.error("Refresh token error:", error);
+		return { success: false };
+	}
+};
+
+const expireSession = async () => {
+	await clearAuthCookies();
+};
+
+export {
+	registerUser,
+	loginUser,
+	logoutUser,
+	refreshAccessToken,
+	expireSession,
+};

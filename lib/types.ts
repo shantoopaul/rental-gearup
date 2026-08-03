@@ -89,3 +89,8 @@ export interface ApiResponse<T> {
 	data: T;
 	meta?: PaginationMeta;
 }
+
+export interface RefreshResult {
+	success: boolean;
+	accessToken?: string;
+}

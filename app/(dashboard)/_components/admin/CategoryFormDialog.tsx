@@ -21,6 +21,7 @@ import {
 import { toast } from "sonner";
 import { Category } from "@/lib/types";
 import { categorySchema, type CategoryInput } from "@/lib/validations/category";
+import { useSWRConfig } from "swr";
 
 interface CategoryFormDialogProps {
 	open: boolean;
@@ -34,7 +35,7 @@ export function CategoryFormDialog({
 	category,
 }: CategoryFormDialogProps) {
 	const [isPending, startTransition] = useTransition();
-
+	const { mutate } = useSWRConfig();
 	const {
 		register,
 		handleSubmit,
@@ -58,9 +59,9 @@ export function CategoryFormDialog({
 			const result = category
 				? await updateCategory(category.id, data.name)
 				: await createCategory(data.name);
-
 			if (result.success) {
 				toast.success(result.message);
+				mutate("/categories");
 				onOpenChange(false);
 			} else {
 				toast.error(result.message);
