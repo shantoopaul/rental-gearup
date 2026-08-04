@@ -22,6 +22,7 @@ export interface RentalOrder {
 	gearItemId: string;
 	gearItem: GearItem;
 	payment?: Payment;
+	reviews?: Review;
 	customer?: { id: string; name: string; email: string };
 }
 
